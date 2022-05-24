@@ -14,17 +14,24 @@
 
 <br>
 
-`/output` folder: 
-- processed survival tables with time and event information for TCGA-COAD and TCGA-LUAD (`surv-dfs_coad.rds`, `surv-os_luad.rds`). _OS_ stands for Overall Survival and the event is death, while _DFS_ stands for Disease-Free survival and the event is relapse
-- processed survival tables to which we integrated molecular features such as cells infiltration information for each patient (_cells-fractions_) or both cells infiltration and cytolytic actvity info (_cells-fractions-cytolytic-activity_) for TCGA-COAD and TCGA-LUAD cohorts
-
-<br>
-
 `/R` folder:
 1. `01_build_survival-dataframe.R` is a script that builds a survival dataframe starting from cBioPortal survival tables selecting for specific sample type and stage.
 2. `02_integrate_cells-fractions.R` is a script that integrates cells infiltration to the survival dataframe built with 1.
 3. `02_integrate_cells-fractions_cytolytic-activity.R` is a script that integrates cells infiltration and cytolytic activity to the survival dataframe built with 1.
 4. `03_km.R` performs Kaplan-Meier analysis
+
+<br>
+
+`/output` folder: 
+- processed survival tables with time and event information for TCGA-COAD and TCGA-LUAD (`surv-dfs_coad.rds`, `surv-os_luad.rds`) where _OS_ stands for _Overall Survival_ (death is the event), while _DFS_ stands for _Disease-Free survival_ (relapse is the event). They are the output of `01_build_survival-dataframe.R`
+- processed survival tables to which we integrated molecular features such as cells infiltration information for each patient (_cells-fractions_) or both cells infiltration and cytolytic actvity info (_cells-fractions-cytolytic-activity_) for TCGA-COAD and TCGA-LUAD cohorts. They are the outptu of `02_integrate_cells-fractions.R` and `02_integrate_cells-fractions_cytolytic-activity.R` respectively.
+
+
+<br>
+
+
+## Instructions
+The numbers in the scripts' names indicate in which order they need to be run. If the number is the same like for `02_integrate_cells-fractions.R` and `02_integrate_cells-fractions_cytolytic-activity.R`, you just need to run one of the two script depending if you want to integrate cell infiltration only or cell infiltration plus cytolytic activity.
 
 <br>
 
@@ -34,3 +41,8 @@
  Packages:
  - `survival` (3.2-13)
  - `survminer` (0.4.9)
+
+<br>
+
+## Operating system
+Ubuntu Ubuntu 20.04.4 LTS
