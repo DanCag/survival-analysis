@@ -9,17 +9,20 @@
 
 # input parameters ----
 
-# tumor type
-tumor_type <- "COAD"
-
-# type of survival analysis
-survival_analysis <- "DFS"
-
-# tumor stages taken into account
-stages_info <- "I-IV"
-
 # signature used for inferring cells fractions
-signature_type <- "LM22"
+# it is "LM22"
+signature <- "LM22"
+
+# feature we will integrate
+feature <- "cells-fractions_cytolytic-activity"
+
+# save parameters that I will need for script "03_km.R"
+save(signature, 
+     feature, 
+     file = "./output/parameters/integrate_parameters.RData")
+
+# load build parameters obtained from script "01_build_survival-dataframe.R"
+load("./output/parameters/build_parameters.RData")
 
 # CIBERSORTx parameters
 cibersort_info <- "1000-permutations"
@@ -53,7 +56,7 @@ cells_fractions <- process_cells_fractions(
       "CIBERSORTx_",
       tumor_type,
       "_",
-      signature_type,
+      signature,
       "_", 
       cibersort_info,
       ".txt")
@@ -146,8 +149,9 @@ saveRDS(
       "_",
       tolower(tumor_type), 
       "_",
-      "cells-fractions_cytolytic-activity_",
-      signature_type, 
+      feature,
+      "_",
+      signature, 
       "_",
       stages_info, 
       ".rds")

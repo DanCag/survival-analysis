@@ -20,10 +20,19 @@ tumor_type <- "COAD"
 # "DFS" stands for disease-free survival
 survival_analysis <- "DFS"
 
+# tumor stages taken into account
+stages_info <- "I-IV"
+
+# save parameters that I will need for script 02_
+save(tumor_type, 
+     survival_analysis, 
+     stages_info, 
+     file = "./output/parameters/build_parameters.RData")
+
 # type of sample (we only select primary tumor samples)
 sample_type <- "Primary Tumor"
 
-# selected tumor stages
+# selected tumor stages (we always select stages from I to IV)
 stages <- c("Stage IA", 
             "Stage II", 
             "Stage IIA", 
@@ -35,9 +44,6 @@ stages <- c("Stage IA",
             "Stage IIIC",
             "Stage IVA", 
             "Stage IVB")
-
-# tumor stages taken into account
-stages_info <- "I-IV"
 
 # clinical dataset
 clinical_path <- file.path(

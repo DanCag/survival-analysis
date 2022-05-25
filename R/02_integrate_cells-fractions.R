@@ -4,25 +4,26 @@
 
 # Integrate immune cells infiltration into survival table 
 
+
+# clear the environment
+rm(list=ls())
+
 # input parameters ----
 
-# tumor type
-# it can be either 
-# "COAD": colon adenocarcinoma 
-# "LUAD": lung adenocarcinoma
-tumor_type <- "LUAD"
-
-# type of survival analysis
-# "OS" stands for overall survival
-# "DFS" stands for disease-free survival
-survival_analysis <- "OS"
-
-# tumor stages taken into account
-stages_info <- "I-IV"
+# load build parameters obtained from script "01_build_survival-dataframe.R"
+load("./output/parameters/build_parameters.RData")
 
 # signature used for inferring cells fractions
 # it can be either "CD8-no-split" or "CD8-split"
-signature_type <- "CD8-split"
+signature <- "CD8-split"
+
+# feature we will integrate
+feature <- "cells-fractions"
+
+# save parameters that I will need for script "03_km.R"
+save(signature, 
+     feature, 
+     file = "./output/parameters/integrate_parameters.RData")
 
 # CIBERSORTx parameters
 cibersort_info <- "rm-batch-S-mode_1000-permutations"
@@ -35,7 +36,7 @@ cells_fractions_path <- file.path(
       "CIBERSORTx_",
       tumor_type,
       "_",
-      signature_type,
+      signature,
       "_", 
       cibersort_info,
       ".txt")
@@ -90,10 +91,9 @@ saveRDS(
       "_",
       tolower(tumor_type),
       "_",
-      paste("cells-fractions",
-            collapse = '-'),
+      feature,
       "_",
-      signature_type,
+      signature,
       "_",
       stages_info,
       ".rds")

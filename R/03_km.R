@@ -2,27 +2,25 @@
 # Kaplan-Meier #
 # ++++++++++++ #
 
+# Kaplan-Meier analysis includes
+# - maximally selected ranks statistics cutpoint
+#   (see commented lines 127-130 of the script to plot cutpoint)
+# - KM plots
+
+
+# clear the environment
+rm(list=ls())
 
 # input parameters ----
 
-# tumor type
-tumor_type <- "LUAD"
-
-# feature 
-# it can be "cells-fractions" or "cells-fractions_cytolytic-activity"
-feature <- "cells-fractions"
-
-# signature
-signature <- "CD8-split"
-
-# stratification variable
+# variable we use to stratify patients
 strat <- "CD8_Tem_GZMK_high"
 
-# survival analysis
-survival_analysis <- "OS"
+# load build parameters obtained from script "01_build_survival-dataframe.R"
+load(file = "./output/parameters/build_parameters.RData")
 
-# stages 
-stages_info <- "I-IV"
+# load integrate parameters obtained from script "02_"
+load(file = "./output/parameters/integrate_parameters.RData")
 
 # flag to decide how to stratify patients:
 # - if FALSE: patients are stratified based on cutpoint computed with 
@@ -126,7 +124,7 @@ if (is.numeric(surv_mf[[strat]]) ) {
              font.x = 14,
              font.y = 14)
   
-  # if you want to check how cutpoint is defined, 
+  # if you want to check how cutpoint is defined and plot it, 
   # uncomment the following 2 lines
   # summary(cutpoint_l)   # print cutpoint value
   # plot(cutpoint_l, strat, palette = "npg") # Plot cutpoint for strat feature
